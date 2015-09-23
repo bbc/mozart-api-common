@@ -1,0 +1,62 @@
+{
+	"ImportPath": "github.com/bbc/mozart-api-common",
+	"GoVersion": "go1.5.1",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/Sirupsen/logrus",
+			"Comment": "v0.8.2-15-g93a1736",
+			"Rev": "93a1736895ca25a01a739e0394bf7f672299a27d"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/aws",
+			"Comment": "v0.9.3rc4-1-g3f85735",
+			"Rev": "3f857351d52db88888630dc590903ad33b9bb124"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/internal/endpoints",
+			"Comment": "v0.9.3rc4-1-g3f85735",
+			"Rev": "3f857351d52db88888630dc590903ad33b9bb124"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/internal/protocol/query",
+			"Comment": "v0.9.3rc4-1-g3f85735",
+			"Rev": "3f857351d52db88888630dc590903ad33b9bb124"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/internal/protocol/rest",
+			"Comment": "v0.9.3rc4-1-g3f85735",
+			"Rev": "3f857351d52db88888630dc590903ad33b9bb124"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/internal/protocol/xml/xmlutil",
+			"Comment": "v0.9.3rc4-1-g3f85735",
+			"Rev": "3f857351d52db88888630dc590903ad33b9bb124"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/internal/signer/v4",
+			"Comment": "v0.9.3rc4-1-g3f85735",
+			"Rev": "3f857351d52db88888630dc590903ad33b9bb124"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/service/cloudwatch",
+			"Comment": "v0.9.3rc4-1-g3f85735",
+			"Rev": "3f857351d52db88888630dc590903ad33b9bb124"
+		},
+		{
+			"ImportPath": "github.com/vaughan0/go-ini",
+			"Rev": "a98ad7ee00ec53921f08832bc06ecf7fd600e6a1"
+		},
+		{
+			"ImportPath": "gopkg.in/bsm/ratelimit.v1",
+			"Rev": "bda20d5067a03094fc6762f7ead53027afac5f28"
+		},
+		{
+			"ImportPath": "gopkg.in/redis.v3",
+			"Comment": "v3.2.8",
+			"Rev": "1e9f53a8e7fe1a37ee5adb04fd0f9cc04bce378f"
+		}
+	]
+}

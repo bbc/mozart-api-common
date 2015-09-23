@@ -1,0 +1,38 @@
+package caching
+
+import (
+	"os"
+	"time"
+
+	"github.com/bbc/mozart-api-common/Godeps/_workspace/src/gopkg.in/redis.v3"
+)
+
+type Cache interface {
+	Get(key string) (string, error)
+	Set(key string, data []byte, expiration time.Duration) (string, error)
+}
+
+type RedisCache struct {
+	client *redis.Client
+}
+
+func (c *RedisCache) getClient() *redis.Client {
+	if c.client == nil {
+		c.client = redis.NewClient(&redis.Options{
+			Addr:        os.Getenv("REDIS_HOST"),
+			Password:    "", // no password set
+			DB:          0,  // use default DB
+			DialTimeout: 3 * time.Second,
+		})
+	}
+
+	return c.client
+}
+
+func (c *RedisCache) Get(key string) (string, error) {
+	return c.getClient().Get(key).Result()
+}
+
+func (c *RedisCache) Set(key string, data []byte, expiration time.Duration) (string, error) {
+	return c.getClient().Set(key, data, expiration).Result()
+}
