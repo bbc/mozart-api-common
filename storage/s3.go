@@ -2,6 +2,7 @@ package storage
 
 import (
 	"bytes"
+	"io/ioutil"
 	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -10,8 +11,8 @@ import (
 )
 
 type Storage interface {
-	Get(key string) (*s3.GetObjectOutput, *Error)
-	Set(key string, data []byte) (*s3.PutObjectOutput, *Error)
+	Get(key string) ([]byte, *Error)
+	Set(key string, data []byte) *Error
 }
 
 type S3Storage struct {
@@ -36,25 +37,39 @@ func (s *S3Storage) getService() *s3.S3 {
 	return s.service
 }
 
-func (s *S3Storage) Get(key string) (*s3.GetObjectOutput, *Error) {
+func (s *S3Storage) Get(key string) ([]byte, *Error) {
 	response, err := s.getService().GetObject(&s3.GetObjectInput{
 		Bucket: aws.String(os.Getenv("S3_BUCKET")),
 		Key:    aws.String(key),
 	})
-	return response, handleError(err)
+
+	var object []byte
+
+	if err != nil {
+		return object, handleAWSError(err)
+	}
+
+	object, readErr := ioutil.ReadAll(response.Body)
+
+	if readErr != nil {
+		return object, &Error{Message: readErr.Error()}
+	}
+
+	return object, nil
 }
 
-func (s *S3Storage) Set(key string, data []byte) (*s3.PutObjectOutput, *Error) {
-	response, err := s.getService().PutObject(&s3.PutObjectInput{
+func (s *S3Storage) Set(key string, data []byte) *Error {
+	_, err := s.getService().PutObject(&s3.PutObjectInput{
 		Bucket:      aws.String(os.Getenv("S3_BUCKET")),
 		Key:         aws.String(key),
 		Body:        bytes.NewReader(data),
 		ContentType: aws.String("application/json"),
 	})
-	return response, handleError(err)
+
+	return handleAWSError(err)
 }
 
-func handleError(err error) *Error {
+func handleAWSError(err error) *Error {
 	var storageError *Error
 
 	if awsErr, ok := err.(awserr.Error); ok {
