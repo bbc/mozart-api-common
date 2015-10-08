@@ -9,7 +9,7 @@ import (
 
 type Cache interface {
 	Get(key string) (string, error)
-	Set(key string, data []byte, expiration time.Duration) (string, error)
+	Set(key string, data string, expiration time.Duration) (string, error)
 }
 
 type RedisCache struct {
@@ -33,6 +33,6 @@ func (c *RedisCache) Get(key string) (string, error) {
 	return c.getClient().Get(key).Result()
 }
 
-func (c *RedisCache) Set(key string, data []byte, expiration time.Duration) (string, error) {
+func (c *RedisCache) Set(key string, data string, expiration time.Duration) (string, error) {
 	return c.getClient().Set(key, data, expiration).Result()
 }

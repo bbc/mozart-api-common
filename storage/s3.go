@@ -11,8 +11,8 @@ import (
 )
 
 type Storage interface {
-	Get(key string) ([]byte, *Error)
-	Set(key string, data []byte) *Error
+	Get(key string) (string, *Error)
+	Set(key string, data string) *Error
 }
 
 type S3Storage struct {
@@ -37,7 +37,7 @@ func (s *S3Storage) getService() *s3.S3 {
 	return s.service
 }
 
-func (s *S3Storage) Get(key string) ([]byte, *Error) {
+func (s *S3Storage) Get(key string) (string, *Error) {
 	response, err := s.getService().GetObject(&s3.GetObjectInput{
 		Bucket: aws.String(os.Getenv("S3_BUCKET")),
 		Key:    aws.String(key),
@@ -46,23 +46,23 @@ func (s *S3Storage) Get(key string) ([]byte, *Error) {
 	var object []byte
 
 	if err != nil {
-		return object, handleAWSError(err)
+		return string(object), handleAWSError(err)
 	}
 
 	object, readErr := ioutil.ReadAll(response.Body)
 
 	if readErr != nil {
-		return object, &Error{Message: readErr.Error()}
+		return string(object), &Error{Message: readErr.Error()}
 	}
 
-	return object, nil
+	return string(object), nil
 }
 
-func (s *S3Storage) Set(key string, data []byte) *Error {
+func (s *S3Storage) Set(key string, data string) *Error {
 	_, err := s.getService().PutObject(&s3.PutObjectInput{
 		Bucket:      aws.String(os.Getenv("S3_BUCKET")),
 		Key:         aws.String(key),
-		Body:        bytes.NewReader(data),
+		Body:        bytes.NewReader([]byte(data)),
 		ContentType: aws.String("application/json"),
 	})
 
