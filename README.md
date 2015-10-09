@@ -27,7 +27,8 @@ This section describes the workflow for making changes to packages in the `mozar
 3. Rewrite the relevant `import` statements in the APIs to use the `mozart-api-common` in your `$GOPATH`, instead of in `Godeps/`, e.g. change `import "github.com/bbc/mozart-template-api/src/Godeps/_workspace/src/github.com/bbc/mozart-api-common/caching"` to `import "github.com/bbc/mozart-api-common/caching"`.
 4. Make the required changes to the repos.
 5. Commit your changes to `mozart-api-common`.
-6. Pull these changes into the API repos by running `godep update github.com/bbc/mozart-api-common/...` and `godep save -r ./...` from their `src/` directories.
 7. Commit the changes to the API repos.
 8. Push your commits up to GitHub and create pull requests for the branches in each of the repos.
-9. On :cake: approval merge your changes into the master branch.
+9. On :cake: approval merge your `mozart-api-common` changes into the master branch.
+10. Pull these changes into the API repos by running `godep update github.com/bbc/mozart-api-common/...` and `godep save -r ./...` from their `src/` directories.
+11. Merge your changes to the API repos into the master branches.
