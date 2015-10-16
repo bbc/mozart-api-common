@@ -18,6 +18,7 @@ func (c *RedisCache) getClient() *redis.Client {
 			Password:    "", // no password set
 			DB:          0,  // use default DB
 			DialTimeout: 3 * time.Second,
+			PoolSize:    30,
 		})
 	}
 
