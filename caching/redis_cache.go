@@ -45,7 +45,7 @@ func (c *RedisCache) Set(key string, data string, expiration time.Duration) (str
 	conn := c.getConn()
 	defer conn.Close()
 
-	val, err := redis.String(conn.Do("SET", key, data, expiration))
+	val, err := redis.String(conn.Do("SET", key, data, "EX", int(expiration.Seconds())))
 	if err != nil {
 		return "", fmt.Errorf("can't set redis key %q: %s", key, err)
 	}
