@@ -16,7 +16,6 @@ func Increment(name string) {
 
 	go func() {
 		if cosmosEnv == "live" {
-			fmt.Println("live time")
 			config := aws.NewConfig().WithRegion(os.Getenv("AWS_REGION"))
 			client := cloudwatch.New(config)
 
