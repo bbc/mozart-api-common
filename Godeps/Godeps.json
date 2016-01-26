@@ -46,11 +46,6 @@
 			"Rev": "f28e73d4791500a90d49190e0a01b769748cc2a8"
 		},
 		{
-			"ImportPath": "github.com/aws/aws-sdk-go/service/cloudwatch",
-			"Comment": "v0.9.13",
-			"Rev": "f28e73d4791500a90d49190e0a01b769748cc2a8"
-		},
-		{
 			"ImportPath": "github.com/aws/aws-sdk-go/service/s3",
 			"Comment": "v0.9.13",
 			"Rev": "f28e73d4791500a90d49190e0a01b769748cc2a8"
@@ -80,6 +75,10 @@
 		{
 			"ImportPath": "github.com/vaughan0/go-ini",
 			"Rev": "a98ad7ee00ec53921f08832bc06ecf7fd600e6a1"
+		},
+		{
+			"ImportPath": "gopkg.in/alexcesaro/statsd.v1",
+			"Rev": "bbc5756ebb41c2ac4c4f6abe584d25eb7cbe2e18"
 		}
 	]
 }

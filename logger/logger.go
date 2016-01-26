@@ -8,10 +8,15 @@ import (
 
 var log = logrus.New()
 
-func Log(inner http.Handler, name string) http.Handler {
+func init() {
 	log.Formatter = new(logrus.JSONFormatter)
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
+	hook := NewStatsDHook()
+	log.Hooks.Add(hook)
+}
+
+func Log(inner http.Handler, name string) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		log.WithFields(logrus.Fields{
 			"url":    r.RequestURI,
 			"method": r.Method,
