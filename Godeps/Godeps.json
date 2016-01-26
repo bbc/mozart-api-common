@@ -80,6 +80,10 @@
 		{
 			"ImportPath": "github.com/vaughan0/go-ini",
 			"Rev": "a98ad7ee00ec53921f08832bc06ecf7fd600e6a1"
+		},
+		{
+			"ImportPath": "gopkg.in/alexcesaro/statsd.v1",
+			"Rev": "bbc5756ebb41c2ac4c4f6abe584d25eb7cbe2e18"
 		}
 	]
 }
