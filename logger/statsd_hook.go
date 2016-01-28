@@ -43,7 +43,7 @@ func (hook *StatsDHook) getClient() (*statsd.Client, error) {
 	if hook.Client == nil {
 		client, err := statsd.New(
 			fmt.Sprintf("%s:%s", os.Getenv("STATSD_HOST"), os.Getenv("STATSD_PORT")),
-			statsd.WithPrefix("mozart-config-api."),
+			statsd.WithPrefix(fmt.Sprintf("%s.", os.Getenv("STATSD_PREFIX"))),
 		)
 		if err != nil {
 			return client, err
