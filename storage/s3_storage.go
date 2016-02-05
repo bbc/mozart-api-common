@@ -10,6 +10,7 @@ import (
 	"github.com/bbc/mozart-api-common/Godeps/_workspace/src/github.com/aws/aws-sdk-go/service/s3"
 )
 
+// S3Storage stores the AWS S3 data
 type S3Storage struct {
 	service *s3.S3
 }
@@ -32,6 +33,7 @@ func (s *S3Storage) getService() *s3.S3 {
 	return s.service
 }
 
+// Get retrieves the specified S3 object
 func (s *S3Storage) Get(key string) (string, *Error) {
 	response, err := s.getService().GetObject(&s3.GetObjectInput{
 		Bucket: aws.String(os.Getenv("S3_BUCKET")),
@@ -53,12 +55,14 @@ func (s *S3Storage) Get(key string) (string, *Error) {
 	return string(object), nil
 }
 
+// Set puts the specified data into the relevant S3 object location
 func (s *S3Storage) Set(key string, data string) *Error {
 	_, err := s.getService().PutObject(&s3.PutObjectInput{
-		Bucket:      aws.String(os.Getenv("S3_BUCKET")),
-		Key:         aws.String(key),
-		Body:        bytes.NewReader([]byte(data)),
-		ContentType: aws.String("application/json"),
+		Bucket:               aws.String(os.Getenv("S3_BUCKET")),
+		Key:                  aws.String(key),
+		Body:                 bytes.NewReader([]byte(data)),
+		ContentType:          aws.String("application/json"),
+		ServerSideEncryption: aws.String("AES256"),
 	})
 
 	return handleAWSError(err)
