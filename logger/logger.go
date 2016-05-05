@@ -11,7 +11,7 @@ var log = logrus.New()
 
 func init() {
 	log.Formatter = new(logrus.JSONFormatter)
-	log.Out = os.Stdout // this should be the default but if this fails I'll try os.Stderr
+	log.Out = os.Stderr // this should be the default but if this fails I'll try os.Stderr
 
 	hook := NewStatsDHook()
 	log.Hooks.Add(hook)
