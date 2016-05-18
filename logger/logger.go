@@ -12,6 +12,14 @@ var log = logrus.New()
 func init() {
 	log.Formatter = new(logrus.JSONFormatter)
 
+	if env := os.Getenv("APP_ENV"); env == "test" {
+		f, e := os.Create("tests.log")
+		if e != nil {
+			log.Fatal("Failed to create log file for whilst tests are running")
+		}
+		log.Out = f
+	}
+
 	if env := os.Getenv("APP_ENV"); env != "test" {
 		hook := NewStatsDHook()
 		log.Hooks.Add(hook)
