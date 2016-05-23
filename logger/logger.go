@@ -9,7 +9,8 @@ import (
 
 var log = logrus.New()
 
-func init() {
+// Init is used to bootstrap the requirements for this package
+func Init() {
 	log.Formatter = new(logrus.JSONFormatter)
 
 	if env := os.Getenv("APP_ENV"); env == "test" {
